@@ -1,0 +1,6 @@
+<div class="card-deck">
+  <%= for aircraft <- get_aircraft() do %>
+    <%= render("aircraft.html", aircraft: aircraft) %>
+  <%= end %>
+</div>
+

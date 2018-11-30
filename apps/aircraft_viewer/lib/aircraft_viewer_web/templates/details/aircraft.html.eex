@@ -1,0 +1,16 @@
+<div class="card bg-primary" style="width: 18rem;">
+  <div class="card-header">
+    <%= @aircraft.icoa %>
+  </div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">callsign <span class="badge badge-secondary float-right"><%= @aircraft.callsign %></span></li>
+      <li class="list-group-item">latitude <span class="badge badge-secondary float-right"><%= @aircraft.latitude %></span></li>
+      <li class="list-group-item">longitude <span class="badge badge-secondary float-right"><%= @aircraft.longitude %></span></li>
+      <li class="list-group-item">altitude <span class="badge badge-secondary float-right"><%= @aircraft.altitude %></span></li>
+      <li class="list-group-item">heading <span class="badge badge-secondary float-right"><%= @aircraft.heading %></span></li>
+      <li class="list-group-item">speed <span class="badge badge-secondary float-right"><%= @aircraft.speed %></span></li>
+      <li class="list-group-item">last seen <span class="badge badge-secondary float-right"><%= @aircraft.last_seen_time%></span></li>
+    </ul>
+  </div>
+</div>
