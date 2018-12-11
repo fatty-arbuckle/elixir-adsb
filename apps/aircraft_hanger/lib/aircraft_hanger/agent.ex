@@ -28,6 +28,20 @@ defmodule AircraftHanger.Agent do
   end
 
   @doc """
+  Addends a message to the aircraft message list
+  """
+  def append(icoa, :messages, nil) do
+  end
+  def append(icoa, :messages, message) do
+    currentMessages = case get(icoa, :messages) do
+      nil  -> []
+      msgs -> msgs
+    end
+    newMessages = currentMessages ++ [message]
+    put(icoa, :messages, newMessages)
+  end
+
+  @doc """
   Deletes info about the aircraft
   """
   def delete(icoa, key) do

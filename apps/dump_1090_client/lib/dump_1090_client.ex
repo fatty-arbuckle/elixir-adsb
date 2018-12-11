@@ -5,7 +5,7 @@ defmodule Dump1090Client do
         |> Stream.map(fn(msg) ->
           case Dump1090Client.Network.Client.parse_adsb(msg) do
             aircraft = %Aircraft{icoa: icoa} ->
-              AircraftHanger.update_aircraft(icoa, aircraft)
+              AircraftHanger.update_aircraft(icoa, aircraft, msg)
             :not_supported ->
               :ok
           end

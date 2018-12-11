@@ -20,7 +20,7 @@ defmodule AircraftHangerTest do
     assert :error == AircraftHanger.Registry.lookup(AircraftHanger.Registry, "unknown_get")
     assert :not_found == AircraftHanger.get_aircraft("unknown_get")
 
-    AircraftHanger.update_aircraft("unknown_update", %{})
+    AircraftHanger.update_aircraft("unknown_update", %{}, nil)
     {:ok, tmp} = AircraftHanger.Registry.lookup(AircraftHanger.Registry, "unknown_update")
     Agent.stop(tmp)
   end
@@ -43,7 +43,7 @@ defmodule AircraftHangerTest do
     aircraft = AircraftHanger.update_aircraft("ABC123", %{
       :latitude => 12,
       :longitude => 24,
-    })
+    }, nil)
     assert aircraft.icoa == "ABC123"
     assert aircraft.altitude == nil
     assert aircraft.heading == nil
@@ -64,15 +64,15 @@ defmodule AircraftHangerTest do
     AircraftHanger.update_aircraft("A", %{
       :latitude => 11,
       :longitude => 12,
-    })
+    }, nil)
     AircraftHanger.update_aircraft("B", %{
       :latitude => 21,
       :longitude => 22,
-    })
+    }, nil)
     AircraftHanger.update_aircraft("C", %{
       :latitude => 31,
       :longitude => 32,
-    })
+    }, nil)
     aircraft = AircraftHanger.get_aircraft()
     assert Enum.count(aircraft) == 4
     Enum.any? aircraft, fn a ->

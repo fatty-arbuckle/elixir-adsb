@@ -16,6 +16,14 @@ defmodule AircraftHanger.AgentTest do
     assert AircraftHanger.Agent.get(agent, :longitude) == nil
   end
 
+  test "appends messages to agent", %{agent: agent} do
+    assert AircraftHanger.Agent.get(agent, :messages) == nil
+    AircraftHanger.Agent.append(agent, :messages, "testing")
+    assert AircraftHanger.Agent.get(agent, :messages) == ["testing"]
+    AircraftHanger.Agent.append(agent, :messages, "gnitset")
+    assert AircraftHanger.Agent.get(agent, :messages) == ["testing", "gnitset"]
+  end
+
   test "gets all the state data in the agent", %{agent: agent} do
     AircraftHanger.Agent.put(agent, :latitude, 42.123)
     AircraftHanger.Agent.put(agent, :longitude, -71.123)

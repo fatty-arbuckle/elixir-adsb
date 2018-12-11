@@ -108,7 +108,7 @@ defmodule Dump1090Client.Network.Client do
   def handle_info({:tcp, _socket, message}, state) do
     case parse_adsb(List.to_string(message)) do
       aircraft = %Aircraft{icoa: icoa} ->
-        AircraftHanger.update_aircraft(icoa, aircraft)
+        AircraftHanger.update_aircraft(icoa, aircraft, message)
       :not_supported ->
         :ok
     end

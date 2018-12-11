@@ -24,12 +24,13 @@ defmodule AircraftHanger do
   @doc """
   Update an aircraft by its icoa string
   """
-  def update_aircraft(icoa, data) do
+  def update_aircraft(icoa, data, message) do
     aircraftAgent = get_or_create_aircraft(icoa)
     Enum.each Map.to_list(data), fn {k, v} ->
       unless v == nil do AircraftHanger.Agent.put(aircraftAgent, k, v) end
     end
     AircraftHanger.Agent.put(aircraftAgent, :last_seen_time, :os.system_time(:millisecond))
+    AircraftHanger.Agent.append(aircraftAgent, :messages, message)
     AircraftHanger.Agent.get(aircraftAgent)
   end
 

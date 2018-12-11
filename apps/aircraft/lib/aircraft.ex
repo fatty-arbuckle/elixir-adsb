@@ -8,6 +8,7 @@ defmodule Aircraft do
     :altitude,
     :speed,
     :heading,
-    :last_seen_time
+    :last_seen_time,
+    :messages
   ]
 end
