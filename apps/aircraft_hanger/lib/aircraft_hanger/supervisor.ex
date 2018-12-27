@@ -9,7 +9,8 @@ defmodule AircraftHanger.Supervisor do
     children = [
       {DynamicSupervisor, name: AircraftHanger.AircraftSupervisor, strategy: :one_for_one},
       {AircraftHanger.Janitor, name: AircraftHanger.Janitor},
-      {AircraftHanger.Registry, name: AircraftHanger.Registry}
+      {AircraftHanger.Registry, name: AircraftHanger.Registry},
+      # {AircraftHanger.Dump1090Listener, name: AircraftHanger.Dump1090Listener}
     ]
 
     Supervisor.init(children, strategy: :one_for_all)

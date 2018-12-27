@@ -48,4 +48,7 @@ defmodule AircraftHanger do
   def start(_type, _args) do
     AircraftHanger.Supervisor.start_link(name: AircraftHanger.Supervisor)
   end
+
+  ## TODO listen here for raw_aircraft_topic and do the right thing (call update?)
+  ## TODO take parsing code out of client...new module?  part of aircraft?
 end

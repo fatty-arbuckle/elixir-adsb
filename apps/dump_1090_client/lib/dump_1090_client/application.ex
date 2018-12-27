@@ -8,7 +8,8 @@ defmodule Dump1090Client.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Dump1090Client.Network.Client, [host: "127.0.0.1", port: 30003]}
+      {Dump1090Client.Network.Client, [host: "127.0.0.1", port: 30003]},
+      {PubSub, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

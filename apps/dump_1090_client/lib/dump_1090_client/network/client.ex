@@ -66,40 +66,49 @@ defmodule Dump1090Client.Network.Client do
 
   # MSG,1,111,11111,A44728,111111,2018/11/17,21:33:06.976,2018/11/17,21:33:06.938,JBU1616 ,,,,,,,,,,,0
   def parse_adsb("MSG,1," <> data) do
+    PubSub.publish(Aircraft.raw_message_topic, %{msg: data})
     tmp = String.split(data, ",")
     icoa = Enum.at(tmp,2)
     callsign = String.trim(Enum.at(tmp, 8))
-    Logger.debug("#{icoa} reporting callsign #{callsign}")
-    %Aircraft{
+    # Logger.debug("#{icoa} reporting callsign #{callsign}")
+    aircraft = %Aircraft{
       icoa: icoa,
       callsign: callsign
     }
+    PubSub.publish(Aircraft.raw_aircraft_topic, %{msg: aircraft})
+    aircraft
   end
   def parse_adsb("MSG,3," <> data) do
+    PubSub.publish(Aircraft.raw_message_topic, %{msg: data})
     tmp = String.split(data, ",")
     icoa = Enum.at(tmp,2)
     altitude = parse_integer(Enum.at(tmp, 9))
     lat = parse_float(Enum.at(tmp, 12))
     lon = parse_float(Enum.at(tmp, 13))
-    Logger.debug("#{icoa} reporting at #{lat}, #{lon} alt #{altitude}")
-    %Aircraft{
+    # Logger.debug("#{icoa} reporting at #{lat}, #{lon} alt #{altitude}")
+    aircraft = %Aircraft{
       icoa: icoa,
       longitude: lon,
       latitude: lat,
       altitude: altitude
     }
+    PubSub.publish(Aircraft.raw_aircraft_topic, %{msg: aircraft})
+    aircraft
   end
   def parse_adsb("MSG,4," <> data) do
+    PubSub.publish(Aircraft.raw_message_topic, %{msg: data})
     tmp = String.split(data, ",")
     icoa = Enum.at(tmp,2)
     speed = parse_integer(Enum.at(tmp, 10))
     heading = parse_integer(Enum.at(tmp, 11))
-    Logger.debug("#{icoa} reporting speed #{speed}, heading #{heading}")
-    %Aircraft{
+    # Logger.debug("#{icoa} reporting speed #{speed}, heading #{heading}")
+    aircraft = %Aircraft{
       icoa: icoa,
       speed: speed,
       heading: heading
     }
+    PubSub.publish(Aircraft.raw_aircraft_topic, %{msg: aircraft})
+    aircraft
   end
   def parse_adsb(_ignored) do
     :not_supported

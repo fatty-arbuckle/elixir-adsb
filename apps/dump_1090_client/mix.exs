@@ -28,6 +28,7 @@ defmodule Dump1090Client.MixProject do
     [
       {:aircraft, in_umbrella: true},
       {:aircraft_hanger, in_umbrella: true},
+      {:pubsub, "~> 1.0"}
     ]
   end
 end

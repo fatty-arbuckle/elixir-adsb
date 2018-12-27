@@ -3,6 +3,7 @@ defmodule Dump1090Client do
     Task.async(fn ->
       File.stream!(file_name)
         |> Stream.map(fn(msg) ->
+          PubSub.publish(Aircraft.raw_message_topic, %{msg: msg})
           case Dump1090Client.Network.Client.parse_adsb(msg) do
             aircraft = %Aircraft{icoa: icoa} ->
               AircraftHanger.update_aircraft(icoa, aircraft, msg)
